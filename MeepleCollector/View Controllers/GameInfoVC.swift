@@ -89,7 +89,7 @@ class GameInfoVC: UIViewController {
     }
     
     func configureUIElements() {
-        gameImageView.downloadThumbnail(from: boardgame.imageURL)
+        gameImageView.downloadThumbnail(for: boardgame)
         gameNameLabel.text = boardgame.name
         gameYearPublishedLabel.text = boardgame.yearPublished?.description
         gamePlayingTimeLabel.text = "Playing Time: \(boardgame.playingTime ?? 0) mins"

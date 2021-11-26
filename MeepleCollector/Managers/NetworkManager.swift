@@ -5,7 +5,7 @@
 //  Created by Fabián Ferreira on 2021-11-25.
 //
 
-import Foundation
+import UIKit
 
 enum RequestType {
     case hotness
@@ -41,6 +41,7 @@ enum RequestType {
 
 class NetworkManager {
     static let shared = NetworkManager()
+    let cache = NSCache<NSString, UIImage>()
     
     private init() { }
     
@@ -67,6 +68,45 @@ class NetworkManager {
             let boardgames = boardgameParser.parse()
             completion(.success(boardgames))
         })
+        
+        task.resume()
+    }
+    
+    func downloadImage(for boardgame: Boardgame, completion: @escaping (UIImage?) -> Void) {
+        
+        guard let urlString = boardgame.thumbnailURL else { return }
+        if let image = cache.object(forKey: urlString as NSString) {
+            completion(image)
+            return
+        }
+        
+        guard let url = URL(string: urlString) else {
+            completion(nil)
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
+            guard let self = self else { return }
+            if let _ = error {
+                return
+            }
+            
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                return
+            }
+            
+            guard let data = data else {
+                return
+            }
+            
+            guard let image = UIImage(data: data) else {
+                completion(nil)
+                return
+            }
+            
+            self.cache.setObject(image, forKey: urlString as NSString)
+            completion(image)
+        }
         
         task.resume()
     }

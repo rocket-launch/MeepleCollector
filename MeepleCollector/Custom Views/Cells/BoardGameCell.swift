@@ -24,7 +24,7 @@ class BoardGameCell: UICollectionViewCell {
     
     func set(boardgame: Boardgame) {
         gametitleLabel.text = boardgame.name
-        gameImageView.downloadThumbnail(from: boardgame.thumbnailURL)
+        gameImageView.downloadThumbnail(for: boardgame)
     }
     
     private func configure() {

@@ -38,8 +38,7 @@ class BoardGameListCell: UITableViewCell {
             self.gameNameLabel.text = boardgame.name
             self.gameRankView.gameRankLabel.text = boardgame.rank?.description
             self.yearPublishedLabel.text = boardgame.yearPublished?.description
-            self.gameMiniatureImageView.downloadThumbnail(from: boardgame.thumbnailURL)
-            
+            self.gameMiniatureImageView.downloadThumbnail(for: boardgame)
         }
     }
     
