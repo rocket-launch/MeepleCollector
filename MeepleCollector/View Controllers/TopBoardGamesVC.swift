@@ -14,12 +14,17 @@ class TopBoardGamesVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureViewController()
         configureTableView()
         getBoardGames()
     }
     
     override func viewDidLayoutSubviews() {
         tableView.frame = view.bounds
+    }
+    
+    func configureViewController() {
+        title = "Top Board Games"
     }
 
     func configureTableView() {
