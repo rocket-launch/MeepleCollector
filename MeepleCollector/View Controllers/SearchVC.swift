@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SearchVC: UIViewController {
+class SearchVC: DataLoadingVC {
     
     enum Section { case main }
     
@@ -76,9 +76,11 @@ extension SearchVC: UISearchBarDelegate {
         
         Task {
             do {
+                showLoadingView()
                 let games = try await NetworkManager.shared.retrieveBoardGames(for: .search(keyword: text))
-               boardgames = try await Helper.getBoargamesInformation(boardgames: games)
+                boardgames = try await Helper.getBoargamesInformation(boardgames: games)
                 updateData()
+                dismissLoadingView()
             } catch {
                 print(error.localizedDescription)
             }

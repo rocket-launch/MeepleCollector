@@ -27,21 +27,4 @@ class Boardgame: Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(gameID)
     }
-    
-    func getInformation() async {
-        do {
-            let boardgames = try await NetworkManager.shared.retrieveBoardGames(for: .game(id: self.gameID))
-            guard let boardgame = boardgames.first else { return }
-            self.name = boardgame.name
-            self.thumbnailURL = boardgame.thumbnailURL
-            self.imageURL = boardgame.imageURL
-            self.description = boardgame.description
-            self.minPlayers = boardgame.minPlayers
-            self.maxPlayers = boardgame.maxPlayers
-            self.playingTime = boardgame.playingTime
-            self.minAge = boardgame.minAge
-        } catch {
-            print(error.localizedDescription)
-        }
-    }
 }

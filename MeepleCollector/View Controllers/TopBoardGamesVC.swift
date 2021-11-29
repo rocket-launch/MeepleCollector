@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TopBoardGamesVC: UIViewController {
+class TopBoardGamesVC: DataLoadingVC {
     
     let tableView = UITableView()
     var boardgames = [Boardgame]()
@@ -41,9 +41,17 @@ class TopBoardGamesVC: UIViewController {
     func getBoardGames() {
         Task {
             do {
+                showLoadingView()
                 let games = try await NetworkManager.shared.retrieveBoardGames(for: .hotness)
                 boardgames = try await Helper.getBoargamesInformation(boardgames: games)
+                boardgames.sort { gameA, gameB in
+                    if let rankA = gameA.rank, let rankB = gameB.rank {
+                        return rankA < rankB
+                    }
+                    return false
+                }
                 tableView.reloadData()
+                dismissLoadingView()
             } catch {
                 print(error.localizedDescription)
             }

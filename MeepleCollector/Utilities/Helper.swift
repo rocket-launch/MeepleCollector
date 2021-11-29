@@ -28,6 +28,7 @@ class Helper {
                     return nil
                 }
             }
+            
             var boardgames = [Boardgame]()
             
             for try await boardgame in taskGroup {

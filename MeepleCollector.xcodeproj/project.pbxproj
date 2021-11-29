@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1F6CD281275468ED00393BA8 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6CD280275468ED00393BA8 /* Helper.swift */; };
+		1F6CD285275573CF00393BA8 /* DataLoadingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6CD284275573CF00393BA8 /* DataLoadingVC.swift */; };
 		1FACF65627505FAE00A95403 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FACF65527505FAE00A95403 /* AppDelegate.swift */; };
 		1FACF65827505FAE00A95403 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FACF65727505FAE00A95403 /* SceneDelegate.swift */; };
 		1FACF65F27505FB000A95403 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FACF65E27505FB000A95403 /* Assets.xcassets */; };
@@ -36,6 +37,7 @@
 
 /* Begin PBXFileReference section */
 		1F6CD280275468ED00393BA8 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		1F6CD284275573CF00393BA8 /* DataLoadingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoadingVC.swift; sourceTree = "<group>"; };
 		1FACF65227505FAE00A95403 /* MeepleCollector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MeepleCollector.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FACF65527505FAE00A95403 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1FACF65727505FAE00A95403 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 				1FACF6912750652300A95403 /* MyCollectionVC.swift */,
 				1FACF68D275064D300A95403 /* TopBoardGamesVC.swift */,
 				1FACF68F275064F500A95403 /* GameInfoVC.swift */,
+				1F6CD284275573CF00393BA8 /* DataLoadingVC.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 				1FACF69C275065D400A95403 /* Boardgame.swift in Sources */,
 				1FACF6972750658200A95403 /* BoardGameParser.swift in Sources */,
 				1FACF66F2750606D00A95403 /* UIView+Ext.swift in Sources */,
+				1F6CD285275573CF00393BA8 /* DataLoadingVC.swift in Sources */,
 				1FACF66D2750604400A95403 /* String+Ext.swift in Sources */,
 				1FACF690275064F500A95403 /* GameInfoVC.swift in Sources */,
 				1FACF67F2750633000A95403 /* MCRankBadge.swift in Sources */,
