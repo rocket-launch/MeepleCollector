@@ -32,7 +32,8 @@ class BoardGameCell: UICollectionViewCell {
     private func configure() {
         addSubview(gameImageView)
         addSubview(gametitleLabel)
-
+        
+        gametitleLabel.lineBreakMode = .byTruncatingTail
         let padding: CGFloat = 8
         
         NSLayoutConstraint.activate([

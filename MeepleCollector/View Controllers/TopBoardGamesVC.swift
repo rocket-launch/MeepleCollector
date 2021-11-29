@@ -11,7 +11,7 @@ class TopBoardGamesVC: UIViewController {
     
     let tableView = UITableView()
     var boardgames = [Boardgame]()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
@@ -39,14 +39,12 @@ class TopBoardGamesVC: UIViewController {
     }
     
     func getBoardGames() {
-        NetworkManager.shared.retrieveBoardGames(for: .hotness) { [weak self] result in
-            switch result {
-            case .success(let boardgames):
-                self?.boardgames = boardgames
-                DispatchQueue.main.async {
-                    self?.tableView.reloadData()
-                }
-            case .failure(let error):
+        Task {
+            do {
+                let games = try await NetworkManager.shared.retrieveBoardGames(for: .hotness)
+                boardgames = try await Helper.getBoargamesInformation(boardgames: games)
+                tableView.reloadData()
+            } catch {
                 print(error.localizedDescription)
             }
         }
@@ -62,9 +60,7 @@ extension TopBoardGamesVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: BoardGameListCell.reuseID, for: indexPath) as! BoardGameListCell
         let boardgame = boardgames[indexPath.row]
-        boardgame.getInformation {
-            cell.set(boardgame: boardgame)
-        }
+        cell.set(boardgame: boardgame)
         return cell
     }
     

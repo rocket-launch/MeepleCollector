@@ -53,9 +53,7 @@ class SearchVC: UIViewController {
     func configureDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, Boardgame>(collectionView: collectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BoardGameCell.reuseID, for: indexPath) as! BoardGameCell
-            itemIdentifier.getInformation {
-                cell.set(boardgame: itemIdentifier)
-            }
+            cell.set(boardgame: itemIdentifier)
             return cell
         })
     }
@@ -64,9 +62,7 @@ class SearchVC: UIViewController {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Boardgame>()
         snapshot.appendSections([.main])
         snapshot.appendItems(boardgames, toSection: .main)
-        DispatchQueue.main.async {
-            self.dataSource.apply(snapshot, animatingDifferences: true)
-        }
+        self.dataSource.apply(snapshot, animatingDifferences: true)
     }
 }
 
@@ -76,27 +72,28 @@ extension SearchVC: UISearchBarDelegate {
         guard let text = searchBar.text, !text.isEmpty else {
             return
         }
+        boardgames.removeAll()
         
-        NetworkManager.shared.retrieveBoardGames(for: .search(keyword: text)) { [weak self] result in
-            switch result {
-            case .success(let boardgames):
-                self?.boardgames = boardgames
-                self?.updateData()
-            case .failure(_):
-                break
+        Task {
+            do {
+                let games = try await NetworkManager.shared.retrieveBoardGames(for: .search(keyword: text))
+               boardgames = try await Helper.getBoargamesInformation(boardgames: games)
+                updateData()
+            } catch {
+                print(error.localizedDescription)
             }
         }
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if let text = searchBar.text, text.isEmpty {
-            boardgames.removeAll(keepingCapacity: true)
+            boardgames.removeAll()
             updateData()
         }
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        boardgames.removeAll(keepingCapacity: true)
+        boardgames.removeAll()
         updateData()
     }
 }

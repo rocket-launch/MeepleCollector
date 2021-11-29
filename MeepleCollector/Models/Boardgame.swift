@@ -28,25 +28,20 @@ class Boardgame: Hashable {
         hasher.combine(gameID)
     }
     
-    func getInformation(completion: @escaping () -> Void) {
-        NetworkManager.shared.retrieveBoardGames(for: .game(id: self.gameID)) {[weak self] boardgames in
-            guard let self = self else { return }
-            
-            switch boardgames {
-            case .success(let boardgames):
-                guard let boardgame = boardgames.first else { return }
-                self.name = boardgame.name
-                self.thumbnailURL = boardgame.thumbnailURL
-                self.imageURL = boardgame.imageURL
-                self.description = boardgame.description
-                self.minPlayers = boardgame.minPlayers
-                self.maxPlayers = boardgame.maxPlayers
-                self.playingTime = boardgame.playingTime
-                self.minAge = boardgame.minAge
-                completion()
-            case .failure(_):
-                break
-            }
+    func getInformation() async {
+        do {
+            let boardgames = try await NetworkManager.shared.retrieveBoardGames(for: .game(id: self.gameID))
+            guard let boardgame = boardgames.first else { return }
+            self.name = boardgame.name
+            self.thumbnailURL = boardgame.thumbnailURL
+            self.imageURL = boardgame.imageURL
+            self.description = boardgame.description
+            self.minPlayers = boardgame.minPlayers
+            self.maxPlayers = boardgame.maxPlayers
+            self.playingTime = boardgame.playingTime
+            self.minAge = boardgame.minAge
+        } catch {
+            print(error.localizedDescription)
         }
     }
 }

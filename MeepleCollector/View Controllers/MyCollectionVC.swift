@@ -36,15 +36,15 @@ class MyCollectionVC: UIViewController {
     }
     
     func getBoardGames() {
-        NetworkManager.shared.retrieveBoardGames(for: .hotness) { [weak self] result in
-            switch result {
-            case .success(let boardgames):
-                self?.boardgames = boardgames
-                self?.updateData()
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
+//        NetworkManager.shared.retrieveBoardGames(for: .hotness) { [weak self] result in
+//            switch result {
+//            case .success(let boardgames):
+//                self?.boardgames = boardgames
+//                self?.updateData()
+//            case .failure(let error):
+//                print(error.localizedDescription)
+//            }
+//        }
     }
     
     func configureDataSource() {

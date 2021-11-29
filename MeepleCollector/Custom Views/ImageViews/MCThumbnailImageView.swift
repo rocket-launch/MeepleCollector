@@ -27,10 +27,8 @@ class MCThumbnailImageView: UIImageView {
     }
     
     func downloadThumbnail(for boardgame: Boardgame) {
-        NetworkManager.shared.downloadImage(for: boardgame) { [weak self] image in
-            DispatchQueue.main.async {
-                self?.image = image
-            }
+        Task {
+            self.image = try await NetworkManager.shared.downloadThumbnail(for: boardgame)
         }
     }
 }

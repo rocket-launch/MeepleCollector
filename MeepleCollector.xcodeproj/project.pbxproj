@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F6CD281275468ED00393BA8 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6CD280275468ED00393BA8 /* Helper.swift */; };
 		1FACF65627505FAE00A95403 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FACF65527505FAE00A95403 /* AppDelegate.swift */; };
 		1FACF65827505FAE00A95403 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FACF65727505FAE00A95403 /* SceneDelegate.swift */; };
 		1FACF65F27505FB000A95403 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FACF65E27505FB000A95403 /* Assets.xcassets */; };
@@ -34,6 +35,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1F6CD280275468ED00393BA8 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		1FACF65227505FAE00A95403 /* MeepleCollector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MeepleCollector.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FACF65527505FAE00A95403 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1FACF65727505FAE00A95403 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 				1FACF6942750656A00A95403 /* Constants.swift */,
 				1FACF6962750658200A95403 /* BoardGameParser.swift */,
 				1FACF698275065A400A95403 /* UILayout.swift */,
+				1F6CD280275468ED00393BA8 /* Helper.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -291,6 +294,7 @@
 				1FACF67F2750633000A95403 /* MCRankBadge.swift in Sources */,
 				1FACF6762750620E00A95403 /* MCTitleLabel.swift in Sources */,
 				1FACF65827505FAE00A95403 /* SceneDelegate.swift in Sources */,
+				1F6CD281275468ED00393BA8 /* Helper.swift in Sources */,
 				1FACF674275061AA00A95403 /* MCThumbnailImageView.swift in Sources */,
 				1FACF67D275062F300A95403 /* MCBodyLabel.swift in Sources */,
 			);

@@ -33,13 +33,13 @@ class BoardGameListCell: UITableViewCell {
     }
     
     func set(boardgame: Boardgame) {
-        DispatchQueue.main.async {
+        
             self.gameDescriptionLabel.text = boardgame.description
             self.gameNameLabel.text = boardgame.name
             self.gameRankView.gameRankLabel.text = boardgame.rank?.description
             self.yearPublishedLabel.text = boardgame.yearPublished?.description
             self.gameMiniatureImageView.downloadThumbnail(for: boardgame)
-        }
+        
     }
     
     private func configure() {

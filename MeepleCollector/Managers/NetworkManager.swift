@@ -39,76 +39,43 @@ enum RequestType {
     }
 }
 
+enum MCError: Error {
+    case invalidURL
+}
+
 class NetworkManager {
     static let shared = NetworkManager()
     let cache = NSCache<NSString, UIImage>()
     
     private init() { }
     
-    func retrieveBoardGames(for type: RequestType, completion: @escaping (Result<[Boardgame], Error>) -> Void) {
+    func retrieveBoardGames(for type: RequestType) async throws -> [Boardgame] {
         
-        guard let url = URL(string: type.endpoint) else {
-            return
-        }
+        guard let url = URL(string: type.endpoint) else { throw  MCError.invalidURL }
         
-        let task = URLSession.shared.dataTask(with: url, completionHandler: { data, response, error in
-            if let _ = error {
-                return
-            }
-            
-            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                return
-            }
-            
-            guard let data = data else {
-                return
-            }
-            
-            let boardgameParser = BoardGameParser(withXML: data)
-            let boardgames = boardgameParser.parse()
-            completion(.success(boardgames))
-        })
+        let (data, _) = try await URLSession.shared.data(from: url)
         
-        task.resume()
+        let boardgameParser = BoardGameParser(withXML: data)
+        let boardgames = boardgameParser.parse()
+        return boardgames
     }
     
-    func downloadImage(for boardgame: Boardgame, completion: @escaping (UIImage?) -> Void) {
+    func downloadThumbnail(for boardgame: Boardgame) async throws -> UIImage? {
         
-        guard let urlString = boardgame.thumbnailURL else { return }
+        guard let urlString = boardgame.thumbnailURL else { return nil }
+        
         if let image = cache.object(forKey: urlString as NSString) {
-            completion(image)
-            return
+            return image
         }
         
-        guard let url = URL(string: urlString) else {
-            completion(nil)
-            return
-        }
+        guard let url = URL(string: urlString) else { return nil }
         
-        let task = URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
-            guard let self = self else { return }
-            if let _ = error {
-                return
-            }
-            
-            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                return
-            }
-            
-            guard let data = data else {
-                return
-            }
-            
-            guard let image = UIImage(data: data) else {
-                completion(nil)
-                return
-            }
-            
-            self.cache.setObject(image, forKey: urlString as NSString)
-            completion(image)
-        }
+        let (data, _) = try await URLSession.shared.data(from: url)
         
-        task.resume()
+        guard let image = UIImage(data: data) else { return nil }
+        
+        cache.setObject(image, forKey: urlString as NSString)
+        return image
     }
 }
 
