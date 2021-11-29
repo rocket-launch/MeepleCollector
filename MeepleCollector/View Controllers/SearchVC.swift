@@ -97,6 +97,7 @@ extension SearchVC: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         boardgames.removeAll()
         updateData()
+        dismissLoadingView()
     }
 }
 
