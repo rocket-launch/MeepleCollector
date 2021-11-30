@@ -20,6 +20,7 @@ class MCThumbnailImageView: UIImageView {
     
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
+        image = UIImage(named: "BoardgamePlaceholder.png")
         clipsToBounds = true
         layer.cornerRadius = 10
         layer.borderWidth = 0.1
@@ -27,9 +28,9 @@ class MCThumbnailImageView: UIImageView {
     }
     
     func downloadThumbnail(for boardgame: Boardgame) {
-        NetworkManager.shared.downloadImage(for: boardgame) { [weak self] image in
-            DispatchQueue.main.async {
-                self?.image = image
+        Task {
+            if let thumbnail = try await NetworkManager.shared.downloadThumbnail(for: boardgame) {
+                image = thumbnail
             }
         }
     }

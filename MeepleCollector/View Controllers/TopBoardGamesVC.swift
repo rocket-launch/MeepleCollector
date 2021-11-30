@@ -7,19 +7,24 @@
 
 import UIKit
 
-class TopBoardGamesVC: UIViewController {
+class TopBoardGamesVC: DataLoadingVC {
     
     let tableView = UITableView()
     var boardgames = [Boardgame]()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureViewController()
         configureTableView()
         getBoardGames()
     }
     
     override func viewDidLayoutSubviews() {
         tableView.frame = view.bounds
+    }
+    
+    func configureViewController() {
+        title = "Top Board Games"
     }
 
     func configureTableView() {
@@ -34,16 +39,22 @@ class TopBoardGamesVC: UIViewController {
     }
     
     func getBoardGames() {
-        NetworkManager.shared.retrieveBoardGames(for: .hotness) { [weak self] result in
-            switch result {
-            case .success(let boardgames):
-                self?.boardgames = boardgames
-                DispatchQueue.main.async {
-                    self?.tableView.reloadData()
+        Task {
+            do {
+                showLoadingView()
+                let games = try await NetworkManager.shared.retrieveBoardGames(for: .hotness)
+                boardgames = try await Helper.getBoargamesInformation(boardgames: games)
+                boardgames.sort { gameA, gameB in
+                    if let rankA = gameA.rank, let rankB = gameB.rank {
+                        return rankA < rankB
+                    }
+                    return false
                 }
-            case .failure(let error):
+                tableView.reloadData()
+            } catch {
                 print(error.localizedDescription)
             }
+            dismissLoadingView()
         }
     }
 }
@@ -57,9 +68,7 @@ extension TopBoardGamesVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: BoardGameListCell.reuseID, for: indexPath) as! BoardGameListCell
         let boardgame = boardgames[indexPath.row]
-        boardgame.getInformation {
-            cell.set(boardgame: boardgame)
-        }
+        cell.set(boardgame: boardgame)
         return cell
     }
     

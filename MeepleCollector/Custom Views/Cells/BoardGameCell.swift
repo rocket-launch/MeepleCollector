@@ -23,14 +23,17 @@ class BoardGameCell: UICollectionViewCell {
     }
     
     func set(boardgame: Boardgame) {
-        gametitleLabel.text = boardgame.name
-        gameImageView.downloadThumbnail(for: boardgame)
+        DispatchQueue.main.async {
+            self.gametitleLabel.text = boardgame.name
+            self.gameImageView.downloadThumbnail(for: boardgame)
+        }
     }
     
     private func configure() {
         addSubview(gameImageView)
         addSubview(gametitleLabel)
-
+        
+        gametitleLabel.lineBreakMode = .byTruncatingTail
         let padding: CGFloat = 8
         
         NSLayoutConstraint.activate([
