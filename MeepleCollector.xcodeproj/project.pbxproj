@@ -179,9 +179,9 @@
 			isa = PBXGroup;
 			children = (
 				1FACF6892750646F00A95403 /* MCTabBarController.swift */,
+				1FACF68D275064D300A95403 /* TopBoardGamesVC.swift */,
 				1FACF68B2750648400A95403 /* SearchVC.swift */,
 				1FACF6912750652300A95403 /* MyCollectionVC.swift */,
-				1FACF68D275064D300A95403 /* TopBoardGamesVC.swift */,
 				1FACF68F275064F500A95403 /* GameInfoVC.swift */,
 				1F6CD284275573CF00393BA8 /* DataLoadingVC.swift */,
 			);

@@ -35,6 +35,7 @@ class DataLoadingVC: UIViewController {
     }
     
     func dismissLoadingView() {
+        guard let container = container else { return }
         container.removeFromSuperview()
     }
 

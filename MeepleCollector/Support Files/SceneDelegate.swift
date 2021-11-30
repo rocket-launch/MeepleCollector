@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = MCTabBarController()
         window?.makeKeyAndVisible()
         
-        UITabBar.appearance().tintColor = .systemPink
+        UINavigationBar.appearance().tintColor = .systemPink
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
