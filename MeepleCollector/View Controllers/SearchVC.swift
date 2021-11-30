@@ -80,10 +80,10 @@ extension SearchVC: UISearchBarDelegate {
                 let games = try await NetworkManager.shared.retrieveBoardGames(for: .search(keyword: text))
                 boardgames = try await Helper.getBoargamesInformation(boardgames: games)
                 updateData()
-                dismissLoadingView()
             } catch {
                 print(error.localizedDescription)
             }
+            dismissLoadingView()
         }
     }
     

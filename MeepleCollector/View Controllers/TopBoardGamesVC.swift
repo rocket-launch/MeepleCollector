@@ -51,10 +51,10 @@ class TopBoardGamesVC: DataLoadingVC {
                     return false
                 }
                 tableView.reloadData()
-                dismissLoadingView()
             } catch {
                 print(error.localizedDescription)
             }
+            dismissLoadingView()
         }
     }
 }

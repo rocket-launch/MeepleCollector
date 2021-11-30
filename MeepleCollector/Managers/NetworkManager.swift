@@ -39,8 +39,9 @@ enum RequestType {
     }
 }
 
-enum MCError: Error {
-    case invalidURL
+enum MCError: String, Error {
+    case invalidURL = "Invalid URL."
+    case invalidResponse = "Invalid response from the server."
 }
 
 class NetworkManager {
@@ -53,12 +54,17 @@ class NetworkManager {
         
         guard let url = URL(string: type.endpoint) else { throw  MCError.invalidURL }
         
-        let (data, _) = try await URLSession.shared.data(from: url)
+        let (data, response) = try await URLSession.shared.data(from: url)
+        
+        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+            throw MCError.invalidResponse
+        }
         
         let boardgameParser = BoardGameParser(withXML: data)
         let boardgames = boardgameParser.parse()
         return boardgames
     }
+    
     
     func downloadThumbnail(for boardgame: Boardgame) async throws -> UIImage? {
         
@@ -70,7 +76,11 @@ class NetworkManager {
         
         guard let url = URL(string: urlString) else { return nil }
         
-        let (data, _) = try await URLSession.shared.data(from: url)
+        let (data, response) = try await URLSession.shared.data(from: url)
+        
+        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+            throw MCError.invalidResponse
+        }
         
         guard let image = UIImage(data: data) else { return nil }
         
