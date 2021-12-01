@@ -46,13 +46,13 @@ class SearchVC: DataLoadingVC {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: UILayout.createThreeColumnFlowLayout(in: view))
         view.addSubview(collectionView)
         collectionView.backgroundColor = .systemBackground
-        collectionView.delegate = self
         collectionView.register(BoardGameCell.self, forCellWithReuseIdentifier: BoardGameCell.reuseID)
     }
     
     func configureDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, Boardgame>(collectionView: collectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BoardGameCell.reuseID, for: indexPath) as! BoardGameCell
+            cell.delegate = self
             cell.set(boardgame: itemIdentifier)
             return cell
         })
@@ -101,11 +101,21 @@ extension SearchVC: UISearchBarDelegate {
     }
 }
 
-extension SearchVC: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+extension SearchVC: MCBoardGameCellDelegate {
+    func didSingleTapCell(for boardgame: Boardgame) {
         let destVC = GameInfoVC()
-        destVC.boardgame = boardgames[indexPath.item]
+        destVC.boardgame = boardgame
         let navController = UINavigationController(rootViewController: destVC)
         present(navController, animated: true)
+    }
+    
+    func didDoubleTapCell(for boardgame: Boardgame) {
+        collectionView.isUserInteractionEnabled = false
+        showAddedConfirmation()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.85) {
+            self.dismissAddedConfirmation {
+                self.collectionView.isUserInteractionEnabled = true
+            }
+        }
     }
 }

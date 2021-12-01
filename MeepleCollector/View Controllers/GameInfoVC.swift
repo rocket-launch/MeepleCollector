@@ -7,7 +7,7 @@
 
 import UIKit
 
-class GameInfoVC: UIViewController {
+class GameInfoVC: DataLoadingVC {
     
     let stackView = UIStackView()
     

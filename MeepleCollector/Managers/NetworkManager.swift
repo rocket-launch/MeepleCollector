@@ -54,11 +54,7 @@ class NetworkManager {
         
         guard let url = URL(string: type.endpoint) else { throw  MCError.invalidURL }
         
-        let (data, response) = try await URLSession.shared.data(from: url)
-        
-        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-            throw MCError.invalidResponse
-        }
+        let (data, _) = try await URLSession.shared.data(from: url)
         
         let boardgameParser = BoardGameParser(withXML: data)
         let boardgames = boardgameParser.parse()
