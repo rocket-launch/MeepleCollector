@@ -10,7 +10,7 @@ import UIKit
 enum RequestType {
     case hotness
     case search(keyword: String?)
-    case game(id: String?)
+    case game(id: [String]?)
     
     var endpoint: String {
         
@@ -27,13 +27,13 @@ enum RequestType {
         case .search(let keyword):
             //https://www.boardgamegeek.com/xmlapi2/search?query=bohnanza
             components.path = "/xmlapi2/search"
-            components.queryItems = [URLQueryItem(name: "query", value: keyword)]
+            components.queryItems = [URLQueryItem(name: "query", value: keyword), URLQueryItem(name: "type", value: "boardgame")]
             return components.string ?? ""
             
         case .game(let id):
             //https://www.boardgamegeek.com/xmlapi2/thing?id=11
             components.path = "/xmlapi2/thing"
-            components.queryItems = [URLQueryItem(name: "id", value: id)]
+            components.queryItems = [URLQueryItem(name: "id", value: id?.joined(separator: ","))]
             return components.string ?? ""
         }
     }
@@ -54,7 +54,11 @@ class NetworkManager {
         
         guard let url = URL(string: type.endpoint) else { throw  MCError.invalidURL }
         
-        let (data, _) = try await URLSession.shared.data(from: url)
+        let (data, response) = try await URLSession.shared.data(from: url)
+        
+        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+            throw MCError.invalidResponse
+        }
         
         let boardgameParser = BoardGameParser(withXML: data)
         let boardgames = boardgameParser.parse()

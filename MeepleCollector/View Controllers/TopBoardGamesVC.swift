@@ -43,7 +43,7 @@ class TopBoardGamesVC: DataLoadingVC {
             do {
                 showLoadingView()
                 let games = try await NetworkManager.shared.retrieveBoardGames(for: .hotness)
-                boardgames = try await Helper.getBoargamesInformation(boardgames: games)
+                boardgames = try await Helper.getBoardgamesInformationById(for: games)
                 boardgames.sort { gameA, gameB in
                     if let rankA = gameA.rank, let rankB = gameB.rank {
                         return rankA < rankB

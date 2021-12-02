@@ -8,7 +8,7 @@
 import Foundation
 
 class Boardgame: Hashable {
-    var gameID: String?
+    var gameID: String!
     var name: String?
     var rank: Int?
     var thumbnailURL: String?

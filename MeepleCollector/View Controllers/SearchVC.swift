@@ -9,13 +9,8 @@ import UIKit
 
 class SearchVC: DataLoadingVC {
     
-    enum Section { case main }
-    
     var boardgames: [Boardgame] = []
-    
     var collectionView: UICollectionView!
-    var dataSource: UICollectionViewDiffableDataSource<Section, Boardgame>!
-    
     let searchController = UISearchController()
 
     override func viewDidLoad() {
@@ -23,7 +18,6 @@ class SearchVC: DataLoadingVC {
         configureViewController()
         configureSearchController()
         configureCollectionView()
-        configureDataSource()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -47,22 +41,24 @@ class SearchVC: DataLoadingVC {
         view.addSubview(collectionView)
         collectionView.backgroundColor = .systemBackground
         collectionView.register(BoardGameCell.self, forCellWithReuseIdentifier: BoardGameCell.reuseID)
-    }
-    
-    func configureDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<Section, Boardgame>(collectionView: collectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BoardGameCell.reuseID, for: indexPath) as! BoardGameCell
-            cell.delegate = self
-            cell.set(boardgame: itemIdentifier)
-            return cell
-        })
+        collectionView.dataSource = self
     }
     
     func updateData() {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Boardgame>()
-        snapshot.appendSections([.main])
-        snapshot.appendItems(boardgames, toSection: .main)
-        self.dataSource.apply(snapshot, animatingDifferences: true)
+        collectionView.reloadData()
+    }
+}
+
+extension SearchVC: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return boardgames.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BoardGameCell.reuseID, for: indexPath) as! BoardGameCell
+        cell.delegate = self
+        cell.set(boardgame: boardgames[indexPath.item])
+        return cell
     }
 }
 
@@ -78,7 +74,7 @@ extension SearchVC: UISearchBarDelegate {
             do {
                 showLoadingView()
                 let games = try await NetworkManager.shared.retrieveBoardGames(for: .search(keyword: text))
-                boardgames = try await Helper.getBoargamesInformation(boardgames: games)
+                boardgames = try await Helper.getBoardgamesInformationById(for: games)
                 updateData()
             } catch {
                 print(error.localizedDescription)
