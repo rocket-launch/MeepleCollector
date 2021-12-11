@@ -42,6 +42,7 @@ enum RequestType {
 enum MCError: String, Error {
     case invalidURL = "Invalid URL."
     case invalidResponse = "Invalid response from the server."
+    case invalidData = "Invalid collection data."
 }
 
 class NetworkManager {

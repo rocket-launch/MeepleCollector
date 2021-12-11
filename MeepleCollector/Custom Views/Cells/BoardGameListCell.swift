@@ -33,12 +33,11 @@ class BoardGameListCell: UITableViewCell {
     }
     
     func set(boardgame: Boardgame) {
-        
-            self.gameDescriptionLabel.text = boardgame.description
-            self.gameNameLabel.text = boardgame.name
-            self.gameRankView.gameRankLabel.text = boardgame.rank?.description
-            self.yearPublishedLabel.text = boardgame.yearPublished?.description
-            self.gameMiniatureImageView.downloadThumbnail(for: boardgame)
+        gameDescriptionLabel.text = boardgame.description
+        gameNameLabel.text = boardgame.name
+        gameRankView.gameRankLabel.text = boardgame.rank?.description
+        yearPublishedLabel.text = boardgame.yearPublished?.description
+        gameMiniatureImageView.downloadThumbnail(for: boardgame)
         
     }
     

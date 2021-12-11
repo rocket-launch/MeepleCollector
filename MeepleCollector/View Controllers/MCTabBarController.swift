@@ -19,7 +19,7 @@ class MCTabBarController: UITabBarController {
         let hot = createTabBarItem(with: UINavigationController(rootViewController: TopBoardGamesVC()), title: "The Hotness", buttonItem: UITabBarItem(title: "Hot", image: SystemImage.hotness, tag: 0))
         let search = createTabBarItem(with: UINavigationController(rootViewController: SearchVC()), title: "Search", buttonItem: UITabBarItem(title: "Search", image: SystemImage.search, tag: 1))
         let play = createTabBarItem(with: UIViewController(), title: "Choose Board Game", buttonItem: UITabBarItem(title: "Play", image: SystemImage.dice, tag: 2))
-        let games = createTabBarItem(with: UINavigationController(rootViewController: UIViewController()), title: "My Board Games", buttonItem: UITabBarItem(title: "Games", image: SystemImage.games, tag: 3))
+        let games = createTabBarItem(with: UINavigationController(rootViewController: MyCollectionVC()), title: "My Board Games", buttonItem: UITabBarItem(title: "Games", image: SystemImage.games, tag: 3))
         viewControllers = [hot, search, play, games]
     }
     

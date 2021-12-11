@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F0A52172759F3730004F666 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0A52162759F3730004F666 /* PersistenceManager.swift */; };
 		1F6CD281275468ED00393BA8 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6CD280275468ED00393BA8 /* Helper.swift */; };
 		1F6CD285275573CF00393BA8 /* DataLoadingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6CD284275573CF00393BA8 /* DataLoadingVC.swift */; };
 		1FACF65627505FAE00A95403 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FACF65527505FAE00A95403 /* AppDelegate.swift */; };
@@ -36,6 +37,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1F0A52162759F3730004F666 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		1F6CD280275468ED00393BA8 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		1F6CD284275573CF00393BA8 /* DataLoadingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoadingVC.swift; sourceTree = "<group>"; };
 		1FACF65227505FAE00A95403 /* MeepleCollector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MeepleCollector.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -171,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				1FACF6862750643300A95403 /* NetworkManager.swift */,
+				1F0A52162759F3730004F666 /* PersistenceManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 				1FACF690275064F500A95403 /* GameInfoVC.swift in Sources */,
 				1FACF67F2750633000A95403 /* MCRankBadge.swift in Sources */,
 				1FACF6762750620E00A95403 /* MCTitleLabel.swift in Sources */,
+				1F0A52172759F3730004F666 /* PersistenceManager.swift in Sources */,
 				1FACF65827505FAE00A95403 /* SceneDelegate.swift in Sources */,
 				1F6CD281275468ED00393BA8 /* Helper.swift in Sources */,
 				1FACF674275061AA00A95403 /* MCThumbnailImageView.swift in Sources */,

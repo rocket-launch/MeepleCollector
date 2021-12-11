@@ -107,6 +107,13 @@ extension SearchVC: MCBoardGameCellDelegate {
     
     func didDoubleTapCell(for boardgame: Boardgame) {
         collectionView.isUserInteractionEnabled = false
+        var collection: [Boardgame] = []
+        if let boardgames = try? PersistenceManager.shared.retrieveCollection() {
+            collection = boardgames
+        }
+        collection.append(boardgame)
+        PersistenceManager.shared.saveCollection(boardgame: collection)
+        
         showAddedConfirmation()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.85) {
             self.dismissAddedConfirmation {

@@ -20,12 +20,20 @@ class MyCollectionVC: UIViewController {
         super.viewDidLoad()
         configureViewController()
         configureCollectionView()
-        getBoardGames()
         configureDataSource()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let collection = try? PersistenceManager.shared.retrieveCollection() {
+            boardgames = collection
+            updateData()
+        }
     }
     
     func configureViewController() {
         view.backgroundColor = .systemBackground
+        title = "My Collection"
     }
     
     func configureCollectionView() {
@@ -33,18 +41,6 @@ class MyCollectionVC: UIViewController {
         view.addSubview(collectionView)
         collectionView.backgroundColor = .systemBackground
         collectionView.register(BoardGameCell.self, forCellWithReuseIdentifier: BoardGameCell.reuseID)
-    }
-    
-    func getBoardGames() {
-//        NetworkManager.shared.retrieveBoardGames(for: .hotness) { [weak self] result in
-//            switch result {
-//            case .success(let boardgames):
-//                self?.boardgames = boardgames
-//                self?.updateData()
-//            case .failure(let error):
-//                print(error.localizedDescription)
-//            }
-//        }
     }
     
     func configureDataSource() {
