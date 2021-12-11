@@ -10,6 +10,9 @@ import UIKit
 class SearchVC: DataLoadingVC {
     
     var boardgames: [Boardgame] = []
+    var boardgameIDs: [Boardgame] = []
+    var page = 0
+    
     var collectionView: UICollectionView!
     let searchController = UISearchController()
 
@@ -42,10 +45,30 @@ class SearchVC: DataLoadingVC {
         collectionView.backgroundColor = .systemBackground
         collectionView.register(BoardGameCell.self, forCellWithReuseIdentifier: BoardGameCell.reuseID)
         collectionView.dataSource = self
+        collectionView.delegate = self
     }
     
     func updateData() {
         collectionView.reloadData()
+    }
+    
+    func getMoreResults() {
+        showLoadingView()
+        Task {
+            do {
+                boardgames += try await Helper.getBoardgamesInformationById(for: retrieveResults(page: page, size: 45))
+                updateData()
+                dismissLoadingView()
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        page += 1
+    }
+    
+    func retrieveResults(page: Int, size: Int) -> [Boardgame] {
+        let retrieved = boardgameIDs.dropFirst(page * size).prefix(size)
+        return Array<Boardgame>(retrieved)
     }
 }
 
@@ -62,8 +85,19 @@ extension SearchVC: UICollectionViewDataSource {
     }
 }
 
+extension SearchVC: UICollectionViewDelegate {
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let height = scrollView.frame.height
+        
+        if offsetY > (contentHeight - height) {
+            getMoreResults()
+        }
+    }
+}
+
 extension SearchVC: UISearchBarDelegate {
-    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let text = searchBar.text, !text.isEmpty else {
             return
@@ -72,14 +106,11 @@ extension SearchVC: UISearchBarDelegate {
         
         Task {
             do {
-                showLoadingView()
-                let games = try await NetworkManager.shared.retrieveBoardGames(for: .search(keyword: text))
-                boardgames = try await Helper.getBoardgamesInformationById(for: games)
-                updateData()
+                boardgameIDs = try await NetworkManager.shared.retrieveBoardGames(for: .search(keyword: text))
+                getMoreResults()
             } catch {
                 print(error.localizedDescription)
             }
-            dismissLoadingView()
         }
     }
     

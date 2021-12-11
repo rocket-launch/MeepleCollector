@@ -22,7 +22,7 @@ class DataLoadingVC: UIViewController {
         loadingContainer.alpha = 0
         
         UIView.animate(withDuration: 0.25) {
-            self.loadingContainer.alpha = 1
+            self.loadingContainer.alpha = 0.8
         }
         
         let activityIndicator = UIActivityIndicatorView(style: .medium)
