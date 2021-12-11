@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Boardgame: Hashable {
+class Boardgame: Hashable, Codable {
     var gameID: String!
     var name: String?
     var rank: Int?

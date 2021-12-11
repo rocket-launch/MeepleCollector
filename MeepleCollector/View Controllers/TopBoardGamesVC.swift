@@ -44,11 +44,10 @@ class TopBoardGamesVC: DataLoadingVC {
                 showLoadingView()
                 let games = try await NetworkManager.shared.retrieveBoardGames(for: .hotness)
                 boardgames = try await Helper.getBoardgamesInformationById(for: games)
-                boardgames.sort { gameA, gameB in
-                    if let rankA = gameA.rank, let rankB = gameB.rank {
-                        return rankA < rankB
-                    }
-                    return false
+                var count = 1
+                for boardgame in boardgames {
+                    boardgame.rank = count
+                    count += 1
                 }
                 tableView.reloadData()
             } catch {
