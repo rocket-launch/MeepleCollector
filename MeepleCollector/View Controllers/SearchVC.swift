@@ -13,6 +13,10 @@ class SearchVC: DataLoadingVC {
     var boardgameIDs: [Boardgame] = []
     var page = 0
     
+    var hasMoreResults: Bool {
+        return boardgames.count < boardgameIDs.count
+    }
+    
     var collectionView: UICollectionView!
     let searchController = UISearchController()
 
@@ -53,6 +57,7 @@ class SearchVC: DataLoadingVC {
     }
     
     func getMoreResults() {
+        guard hasMoreResults else { return }
         showLoadingView()
         Task {
             do {
@@ -63,11 +68,11 @@ class SearchVC: DataLoadingVC {
                 print(error.localizedDescription)
             }
         }
-        page += 1
     }
     
     func retrieveResults(page: Int, size: Int) -> [Boardgame] {
         let retrieved = boardgameIDs.dropFirst(page * size).prefix(size)
+        self.page += 1
         return Array<Boardgame>(retrieved)
     }
 }
@@ -103,6 +108,7 @@ extension SearchVC: UISearchBarDelegate {
             return
         }
         boardgames.removeAll()
+        page = 0
         
         Task {
             do {
