@@ -29,7 +29,7 @@ class MCThumbnailImageView: UIImageView {
     
     func downloadThumbnail(for boardgame: Boardgame) {
         Task {
-            if let thumbnail = try await NetworkManager.shared.downloadThumbnail(for: boardgame) {
+            if let thumbnail = try await NetworkManager.shared.downloadImage(for: boardgame, imageType: .thumbnail) {
                 image = thumbnail
             }
         }

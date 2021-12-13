@@ -39,6 +39,10 @@ enum RequestType {
     }
 }
 
+enum ImageType {
+    case thumbnail, image
+}
+
 enum MCError: String, Error {
     case invalidURL = "Invalid URL."
     case invalidResponse = "Invalid response from the server."
@@ -67,9 +71,17 @@ class NetworkManager {
     }
     
     
-    func downloadThumbnail(for boardgame: Boardgame) async throws -> UIImage? {
+    func downloadImage(for boardgame: Boardgame, imageType: ImageType) async throws -> UIImage? {
+        var imageURL: String? = ""
         
-        guard let urlString = boardgame.thumbnailURL else { return nil }
+        switch imageType {
+        case .thumbnail:
+            imageURL = boardgame.thumbnailURL
+        case .image:
+            imageURL = boardgame.imageURL
+        }
+        
+        guard let urlString = imageURL else { return nil }
         
         if let image = cache.object(forKey: urlString as NSString) {
             return image
