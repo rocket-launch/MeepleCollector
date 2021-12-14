@@ -19,7 +19,7 @@ class GameInfoVC: DataLoadingVC {
     
     let padding: CGFloat = 10
     
-    let gameImageView = MCThumbnailImageView(frame: .zero)
+    let gameImageView = MCGameImageView(frame: .zero)
     let gameNameLabel = MCTitleLabel(textAlignment: .left, fontSize: 25)
     let gameYearPublishedLabel = MCBodyLabel()
     let gameDescriptionLabel = MCBodyLabel()
@@ -40,7 +40,6 @@ class GameInfoVC: DataLoadingVC {
 
     func configureViewController() {
         view.backgroundColor = .systemBackground
-        title = boardgame.name
         let closeButton = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(dismissVC))
         navigationItem.rightBarButtonItem = closeButton
     }
@@ -59,8 +58,8 @@ class GameInfoVC: DataLoadingVC {
     func configureScrollView() {
         containerTwo.addSubview(scrollView)
         scrollView.addSubview(contentView)
-        scrollView.pinToParent(view: containerTwo)
-        contentView.pinToParent(view: scrollView)
+        scrollView.pinToSides(of: containerTwo, sides: .all())
+        contentView.pinToSides(of: scrollView, sides: .all())
         
         NSLayoutConstraint.activate([
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
@@ -89,7 +88,7 @@ class GameInfoVC: DataLoadingVC {
     }
     
     func configureUIElements() {
-        gameImageView.downloadThumbnail(for: boardgame)
+        gameImageView.downloadImage(for: boardgame, imageType: .thumbnail)
         gameNameLabel.text = boardgame.name
         gameYearPublishedLabel.text = boardgame.yearPublished?.description
         gamePlayingTimeLabel.text = "Playing Time: \(boardgame.playingTime ?? 0) mins"

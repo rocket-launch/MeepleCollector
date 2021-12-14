@@ -15,7 +15,7 @@ protocol MCBoardGameCellDelegate: AnyObject {
 class BoardGameCell: UICollectionViewCell {
     
     static let reuseID = "BoardGameCell"
-    let gameImageView = MCThumbnailImageView(frame: .zero)
+    let gameImageView = MCGameImageView(frame: .zero)
     let gametitleLabel = MCTitleLabel(textAlignment: .center, fontSize: 16)
     
     var singleTap: UITapGestureRecognizer!
@@ -36,7 +36,7 @@ class BoardGameCell: UICollectionViewCell {
     func set(boardgame: Boardgame) {
         self.boardgame = boardgame
         gametitleLabel.text = boardgame.name
-        gameImageView.downloadThumbnail(for: boardgame)
+        gameImageView.downloadImage(for: boardgame, imageType: .thumbnail)
     }
     
     private func configure() {

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MCThumbnailImageView: UIImageView {
+class MCGameImageView: UIImageView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -20,17 +20,17 @@ class MCThumbnailImageView: UIImageView {
     
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
-        image = UIImage(named: "BoardgamePlaceholder.png")
+        //image = UIImage(named: "BoardgamePlaceholder.png")
         clipsToBounds = true
         layer.cornerRadius = 10
         layer.borderWidth = 0.1
         contentMode = .scaleAspectFill
     }
     
-    func downloadThumbnail(for boardgame: Boardgame) {
+    func downloadImage(for boardgame: Boardgame, imageType: ImageType) {
         Task {
-            if let thumbnail = try await NetworkManager.shared.downloadImage(for: boardgame, imageType: .thumbnail) {
-                image = thumbnail
+            if let image = try await NetworkManager.shared.downloadImage(for: boardgame, imageType: imageType) {
+                self.image = image
             }
         }
     }

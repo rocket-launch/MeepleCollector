@@ -10,13 +10,14 @@
 		1F0A52172759F3730004F666 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0A52162759F3730004F666 /* PersistenceManager.swift */; };
 		1F6CD281275468ED00393BA8 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6CD280275468ED00393BA8 /* Helper.swift */; };
 		1F6CD285275573CF00393BA8 /* DataLoadingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6CD284275573CF00393BA8 /* DataLoadingVC.swift */; };
+		1F933F1A276701A0000E3E0C /* MyGameInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F933F19276701A0000E3E0C /* MyGameInfo.swift */; };
 		1FACF65627505FAE00A95403 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FACF65527505FAE00A95403 /* AppDelegate.swift */; };
 		1FACF65827505FAE00A95403 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FACF65727505FAE00A95403 /* SceneDelegate.swift */; };
 		1FACF65F27505FB000A95403 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FACF65E27505FB000A95403 /* Assets.xcassets */; };
 		1FACF66227505FB000A95403 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FACF66027505FB000A95403 /* LaunchScreen.storyboard */; };
 		1FACF66D2750604400A95403 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FACF66C2750604400A95403 /* String+Ext.swift */; };
 		1FACF66F2750606D00A95403 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FACF66E2750606D00A95403 /* UIView+Ext.swift */; };
-		1FACF674275061AA00A95403 /* MCThumbnailImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FACF673275061AA00A95403 /* MCThumbnailImageView.swift */; };
+		1FACF674275061AA00A95403 /* MCGameImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FACF673275061AA00A95403 /* MCGameImageView.swift */; };
 		1FACF6762750620E00A95403 /* MCTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FACF6752750620E00A95403 /* MCTitleLabel.swift */; };
 		1FACF6782750624B00A95403 /* MCRankLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FACF6772750624B00A95403 /* MCRankLabel.swift */; };
 		1FACF67B275062BC00A95403 /* MCInfoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FACF67A275062BC00A95403 /* MCInfoLabel.swift */; };
@@ -40,6 +41,7 @@
 		1F0A52162759F3730004F666 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		1F6CD280275468ED00393BA8 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		1F6CD284275573CF00393BA8 /* DataLoadingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoadingVC.swift; sourceTree = "<group>"; };
+		1F933F19276701A0000E3E0C /* MyGameInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyGameInfo.swift; sourceTree = "<group>"; };
 		1FACF65227505FAE00A95403 /* MeepleCollector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MeepleCollector.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FACF65527505FAE00A95403 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1FACF65727505FAE00A95403 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -48,7 +50,7 @@
 		1FACF66327505FB000A95403 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1FACF66C2750604400A95403 /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
 		1FACF66E2750606D00A95403 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
-		1FACF673275061AA00A95403 /* MCThumbnailImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCThumbnailImageView.swift; sourceTree = "<group>"; };
+		1FACF673275061AA00A95403 /* MCGameImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCGameImageView.swift; sourceTree = "<group>"; };
 		1FACF6752750620E00A95403 /* MCTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCTitleLabel.swift; sourceTree = "<group>"; };
 		1FACF6772750624B00A95403 /* MCRankLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCRankLabel.swift; sourceTree = "<group>"; };
 		1FACF67A275062BC00A95403 /* MCInfoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCInfoLabel.swift; sourceTree = "<group>"; };
@@ -143,7 +145,7 @@
 		1FACF6722750616800A95403 /* ImageViews */ = {
 			isa = PBXGroup;
 			children = (
-				1FACF673275061AA00A95403 /* MCThumbnailImageView.swift */,
+				1FACF673275061AA00A95403 /* MCGameImageView.swift */,
 			);
 			path = ImageViews;
 			sourceTree = "<group>";
@@ -187,6 +189,7 @@
 				1FACF6912750652300A95403 /* MyCollectionVC.swift */,
 				1FACF68F275064F500A95403 /* GameInfoVC.swift */,
 				1F6CD284275573CF00393BA8 /* DataLoadingVC.swift */,
+				1F933F19276701A0000E3E0C /* MyGameInfo.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -287,6 +290,7 @@
 				1FACF68E275064D300A95403 /* TopBoardGamesVC.swift in Sources */,
 				1FACF6782750624B00A95403 /* MCRankLabel.swift in Sources */,
 				1FACF682275063B300A95403 /* BoardGameCell.swift in Sources */,
+				1F933F1A276701A0000E3E0C /* MyGameInfo.swift in Sources */,
 				1FACF68A2750646F00A95403 /* MCTabBarController.swift in Sources */,
 				1FACF6872750643300A95403 /* NetworkManager.swift in Sources */,
 				1FACF65627505FAE00A95403 /* AppDelegate.swift in Sources */,
@@ -303,7 +307,7 @@
 				1F0A52172759F3730004F666 /* PersistenceManager.swift in Sources */,
 				1FACF65827505FAE00A95403 /* SceneDelegate.swift in Sources */,
 				1F6CD281275468ED00393BA8 /* Helper.swift in Sources */,
-				1FACF674275061AA00A95403 /* MCThumbnailImageView.swift in Sources */,
+				1FACF674275061AA00A95403 /* MCGameImageView.swift in Sources */,
 				1FACF67D275062F300A95403 /* MCBodyLabel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

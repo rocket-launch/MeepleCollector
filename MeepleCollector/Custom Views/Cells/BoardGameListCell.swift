@@ -18,7 +18,7 @@ class BoardGameListCell: UITableViewCell {
     let gameNameLabel = MCTitleLabel(textAlignment: .left, fontSize: 16)
     let gameDescriptionLabel = MCBodyLabel()
     let yearPublishedLabel = MCBodyLabel()
-    let gameMiniatureImageView = MCThumbnailImageView(frame: .zero)
+    let gameMiniatureImageView = MCGameImageView(frame: .zero)
     
     let padding: CGFloat = 6
     let cellPadding: CGFloat = 6
@@ -37,7 +37,7 @@ class BoardGameListCell: UITableViewCell {
         gameNameLabel.text = boardgame.name
         gameRankView.gameRankLabel.text = boardgame.rank?.description
         yearPublishedLabel.text = boardgame.yearPublished?.description
-        gameMiniatureImageView.downloadThumbnail(for: boardgame)
+        gameMiniatureImageView.downloadImage(for: boardgame, imageType: .thumbnail)
         
     }
     
@@ -58,7 +58,7 @@ class BoardGameListCell: UITableViewCell {
         cellBackgroundView.backgroundColor = .secondarySystemBackground
         cellBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         
-        cellBackgroundView.pinToParent(view: self)
+        cellBackgroundView.pinToSides(of: self, sides: .all())
     }
     
     private func configureRoundedRectShadowView() {
@@ -89,7 +89,7 @@ class BoardGameListCell: UITableViewCell {
         roundedRectContainerView.layer.cornerRadius = 10
         roundedRectContainerView.backgroundColor = .systemBackground
         
-        roundedRectContainerView.pinToParent(view: roundedRectShadowView)
+        roundedRectContainerView.pinToSides(of: roundedRectShadowView, sides: .all())
     }
     
     private func configureGameMiniatureImageView() {

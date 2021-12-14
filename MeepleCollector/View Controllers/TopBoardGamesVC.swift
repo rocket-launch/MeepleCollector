@@ -72,9 +72,11 @@ extension TopBoardGamesVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let destVC = GameInfoVC()
+        let destVC = MyGameInfo()
         destVC.boardgame = boardgames[indexPath.row]
         let navController = UINavigationController(rootViewController: destVC)
+        navController.modalPresentationStyle = .overFullScreen
+        navController.modalTransitionStyle = .coverVertical
         present(navController, animated: true)
     }
 }
