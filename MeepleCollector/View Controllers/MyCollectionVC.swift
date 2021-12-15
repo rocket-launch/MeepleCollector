@@ -40,6 +40,7 @@ class MyCollectionVC: UIViewController {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: UILayout.createThreeColumnFlowLayout(in: view))
         view.addSubview(collectionView)
         collectionView.backgroundColor = .systemBackground
+        collectionView.delegate = self
         collectionView.register(BoardGameCell.self, forCellWithReuseIdentifier: BoardGameCell.reuseID)
     }
     
@@ -58,6 +59,14 @@ class MyCollectionVC: UIViewController {
         DispatchQueue.main.async {
             self.dataSource.apply(snapshot, animatingDifferences: true)
         }
+    }
+}
+
+extension MyCollectionVC: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let destVC = MyGameInfo()
+        destVC.boardgame = boardgames[indexPath.item]
+        present(destVC, animated: true)
     }
 }
 

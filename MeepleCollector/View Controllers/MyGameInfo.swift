@@ -14,16 +14,45 @@ class MyGameInfo: UIViewController {
     let closeButton = UIButton()
     
     let gameImageView = MCGameImageView(frame: .zero)
-    let gameTitleLabel = MCTitleLabel(textAlignment: .left, fontSize: 42)
+    let gameTitleLabel = MCTitleLabel(textAlignment: .left, fontSize: 43)
     let gameInfoContainer = UIView()
     
     let gameDescriptionLabel = MCBodyLabel(frame: .zero)
     
     let scrollView = UIScrollView()
+    let gameInfoDetailsStack = UIStackView()
     
     let padding: CGFloat = 10
     
     var boardgame: Boardgame!
+    
+    lazy var yearPublished: MCGameInfoView = {
+        let year = MCGameInfoView()
+        year.set(gameInfoType: .year, withDetail: String(boardgame.yearPublished!))
+        return year
+    }()
+    
+    lazy var playingTime: MCGameInfoView = {
+        let time = MCGameInfoView()
+        time.set(gameInfoType: .time, withDetail: String(boardgame.playingTime!))
+        return time
+    }()
+    
+    lazy var minAge: MCGameInfoView = {
+        let age = MCGameInfoView()
+        age.set(gameInfoType: .age, withDetail: "\(String(boardgame.minAge!))+")
+        return age
+    }()
+    
+    lazy var numPlayers: MCGameInfoView = {
+        let players = MCGameInfoView()
+        if let minPlayer = boardgame.minPlayers, let maxPlayer = boardgame.maxPlayers {
+            players.set(gameInfoType: .players, withDetail: "\(String(minPlayer)) - \(String(maxPlayer))")
+            return players
+        }
+        players.set(gameInfoType: .players, withDetail: "N/A")
+        return players
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +62,7 @@ class MyGameInfo: UIViewController {
         configureGameContentView()
         configureImageView()
         configureGameInfoContainerView()
+        configureGameInfoDetailsStack()
         configureGameTitleLabel()
         configureGameDescriptionLabel()
     }
@@ -92,10 +122,29 @@ class MyGameInfo: UIViewController {
         gameContentView.bringSubviewToFront(gameInfoContainer)
         
         NSLayoutConstraint.activate([
-            gameInfoContainer.heightAnchor.constraint(equalToConstant: 100)
+            gameInfoContainer.heightAnchor.constraint(equalToConstant: 70)
         ])
     }
     
+    func configureGameInfoDetailsStack() {
+        gameInfoContainer.addSubview(gameInfoDetailsStack)
+        gameInfoDetailsStack.translatesAutoresizingMaskIntoConstraints = false
+        
+        gameInfoDetailsStack.axis = .horizontal
+        gameInfoDetailsStack.distribution = .equalSpacing
+        
+        gameInfoDetailsStack.addArrangedSubview(yearPublished)
+        gameInfoDetailsStack.addArrangedSubview(numPlayers)
+        gameInfoDetailsStack.addArrangedSubview(minAge)
+        gameInfoDetailsStack.addArrangedSubview(playingTime)
+        
+        NSLayoutConstraint.activate([
+            gameInfoDetailsStack.topAnchor.constraint(equalTo: gameInfoContainer.topAnchor),
+            gameInfoDetailsStack.leadingAnchor.constraint(equalTo: gameInfoContainer.leadingAnchor, constant: 20),
+            gameInfoDetailsStack.trailingAnchor.constraint(equalTo: gameInfoContainer.trailingAnchor, constant: -20),
+            gameInfoDetailsStack.bottomAnchor.constraint(equalTo: gameInfoContainer.bottomAnchor)
+        ])
+    }
     
     func configureGameTitleLabel() {
         gameContentView.addSubview(gameTitleLabel)
@@ -112,7 +161,7 @@ class MyGameInfo: UIViewController {
         
         NSLayoutConstraint.activate([
             gameTitleLabel.heightAnchor.constraint(lessThanOrEqualToConstant: 300),
-            gameTitleLabel.bottomAnchor.constraint(equalTo: gameInfoContainer.topAnchor, constant: -padding)
+            gameTitleLabel.bottomAnchor.constraint(equalTo: gameInfoContainer.topAnchor, constant: -7)
         ])
     }
     

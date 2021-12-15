@@ -12,4 +12,9 @@ enum SystemImage {
     static let search = UIImage(systemName: "magnifyingglass")
     static let dice = UIImage(systemName: "dice")
     static let games = UIImage(systemName: "star")
+    
+    static let playingTime = UIImage(systemName: "clock")
+    static let numberOfPlayers = UIImage(systemName: "person.2")
+    static let minimumAge = UIImage(systemName: "brain.head.profile")
+    static let yearPublished = UIImage(systemName: "calendar")
 }

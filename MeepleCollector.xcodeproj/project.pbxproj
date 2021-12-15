@@ -11,6 +11,7 @@
 		1F6CD281275468ED00393BA8 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6CD280275468ED00393BA8 /* Helper.swift */; };
 		1F6CD285275573CF00393BA8 /* DataLoadingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6CD284275573CF00393BA8 /* DataLoadingVC.swift */; };
 		1F933F1A276701A0000E3E0C /* MyGameInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F933F19276701A0000E3E0C /* MyGameInfo.swift */; };
+		1F933F1F2769B490000E3E0C /* MCGameInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F933F1E2769B490000E3E0C /* MCGameInfoView.swift */; };
 		1FACF65627505FAE00A95403 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FACF65527505FAE00A95403 /* AppDelegate.swift */; };
 		1FACF65827505FAE00A95403 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FACF65727505FAE00A95403 /* SceneDelegate.swift */; };
 		1FACF65F27505FB000A95403 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FACF65E27505FB000A95403 /* Assets.xcassets */; };
@@ -42,6 +43,7 @@
 		1F6CD280275468ED00393BA8 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		1F6CD284275573CF00393BA8 /* DataLoadingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoadingVC.swift; sourceTree = "<group>"; };
 		1F933F19276701A0000E3E0C /* MyGameInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyGameInfo.swift; sourceTree = "<group>"; };
+		1F933F1E2769B490000E3E0C /* MCGameInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCGameInfoView.swift; sourceTree = "<group>"; };
 		1FACF65227505FAE00A95403 /* MeepleCollector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MeepleCollector.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FACF65527505FAE00A95403 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1FACF65727505FAE00A95403 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -81,6 +83,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F933F1D2769B13A000E3E0C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1F933F1E2769B490000E3E0C /* MCGameInfoView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		1FACF64927505FAE00A95403 = {
 			isa = PBXGroup;
 			children = (
@@ -136,6 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				1FACF6722750616800A95403 /* ImageViews */,
+				1F933F1D2769B13A000E3E0C /* Views */,
 				1FACF6792750626D00A95403 /* Labels */,
 				1FACF6802750636800A95403 /* Cells */,
 			);
@@ -309,6 +320,7 @@
 				1F6CD281275468ED00393BA8 /* Helper.swift in Sources */,
 				1FACF674275061AA00A95403 /* MCGameImageView.swift in Sources */,
 				1FACF67D275062F300A95403 /* MCBodyLabel.swift in Sources */,
+				1F933F1F2769B490000E3E0C /* MCGameInfoView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
