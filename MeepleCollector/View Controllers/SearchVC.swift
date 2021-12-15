@@ -136,10 +136,9 @@ extension SearchVC: UISearchBarDelegate {
 
 extension SearchVC: MCBoardGameCellDelegate {
     func didSingleTapCell(for boardgame: Boardgame) {
-        let destVC = GameInfoVC()
+        let destVC = MyGameInfo()
         destVC.boardgame = boardgame
-        let navController = UINavigationController(rootViewController: destVC)
-        present(navController, animated: true)
+        present(destVC, animated: true)
     }
     
     func didDoubleTapCell(for boardgame: Boardgame) {

@@ -20,7 +20,7 @@ class MCBodyLabel: UILabel {
     
     private func configure() {
         textColor = .secondaryLabel
-        font = UIFont.systemFont(ofSize: 17)
+        font = UIFont.systemFont(ofSize: 18)
         adjustsFontSizeToFitWidth = true
         minimumScaleFactor = 0.95
         numberOfLines = 2

@@ -30,9 +30,9 @@ extension UIView {
             case .top(let constant):
                 constraints.append(topAnchor.constraint(equalTo: view.topAnchor, constant: constant))
             case .bottom(let constant):
-                constraints.append(bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: constant))
+                constraints.append(bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -constant))
             case .trailing(let constant):
-                constraints.append(trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: constant))
+                constraints.append(trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -constant))
             case .leading(let constant):
                 constraints.append(leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: constant))
             case .all(let constant):

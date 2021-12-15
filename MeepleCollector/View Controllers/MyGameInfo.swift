@@ -9,16 +9,17 @@ import UIKit
 
 class MyGameInfo: UIViewController {
     
-    let gameTopContainer = UIView()
-    let gameImageContainer = UIView()
-    let gameInfoContainer = UIView()
+    let gameContentView = UIView()
     
-    let scrollView = UIScrollView()
-    let contentView = UIView()
-    let gameDescriptionLabel = MCBodyLabel(frame: .zero)
+    let closeButton = UIButton()
     
     let gameImageView = MCGameImageView(frame: .zero)
     let gameTitleLabel = MCTitleLabel(textAlignment: .left, fontSize: 42)
+    let gameInfoContainer = UIView()
+    
+    let gameDescriptionLabel = MCBodyLabel(frame: .zero)
+    
+    let scrollView = UIScrollView()
     
     let padding: CGFloat = 10
     
@@ -27,12 +28,13 @@ class MyGameInfo: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
-        configureTopContainerView()
-        configureImageContainerView()
+        configureScrollView()
+        configureCloseButton()
+        configureGameContentView()
         configureImageView()
         configureGameInfoContainerView()
         configureGameTitleLabel()
-        configureScrollView()
+        configureGameDescriptionLabel()
     }
     
     func configureViewController() {
@@ -41,94 +43,110 @@ class MyGameInfo: UIViewController {
         navigationItem.rightBarButtonItem = closeButton
     }
     
-    func configureTopContainerView() {
-        view.addSubview(gameTopContainer)
-        
-        gameTopContainer.translatesAutoresizingMaskIntoConstraints = false
-        gameTopContainer.clipsToBounds = true
-        
-        gameTopContainer.pinToSides(of: view, sides: .top(), .leading(), .trailing(), .bottom(constant: -250))
-    }
-    
-    func configureImageContainerView() {
-        gameTopContainer.addSubview(gameImageContainer)
-        
-        gameImageContainer.translatesAutoresizingMaskIntoConstraints = false
-        gameImageContainer.clipsToBounds = true
-        
-        gameImageContainer.pinToSides(of: gameTopContainer, sides: .all(constant: -10))
-    }
-    
-    func configureImageView() {
-        gameImageContainer.addSubview(gameImageView)
-        gameImageView.downloadImage(for: boardgame, imageType: .image)
-        gameImageView.contentMode = .scaleAspectFill
-        
-        gameImageView.pinToSides(of: gameImageContainer, sides: .all())
-    }
-    
-    func configureGameTitleLabel() {
-        gameTopContainer.addSubview(gameTitleLabel)
-        
-        gameTitleLabel.text = boardgame.name
-        gameTitleLabel.textColor = .white
-        gameTitleLabel.numberOfLines = 3
-        gameTitleLabel.lineBreakMode = .byWordWrapping
-       
-        
-        gameTitleLabel.layer.shadowColor = UIColor.black.cgColor
-        gameTitleLabel.layer.shadowOffset = CGSize(width: 2, height: 2)
-        gameTitleLabel.layer.shadowOpacity = 1
-        
-        gameTitleLabel.pinToSides(of: gameTopContainer, sides: .leading(constant: padding), .trailing(constant: padding))
-
-        NSLayoutConstraint.activate([
-            gameTitleLabel.heightAnchor.constraint(lessThanOrEqualToConstant: 300),
-            gameTitleLabel.bottomAnchor.constraint(equalTo: gameInfoContainer.topAnchor, constant: -10)
-        ])
-    }
-    
-    func configureGameInfoContainerView() {
-        gameTopContainer.addSubview(gameInfoContainer)
-        gameInfoContainer.translatesAutoresizingMaskIntoConstraints = false
-        gameInfoContainer.backgroundColor = .black.withAlphaComponent(0.7)
-        gameTopContainer.bringSubviewToFront(gameInfoContainer)
-
-        gameInfoContainer.pinToSides(of: gameImageContainer, sides: .leading(), .trailing())
+    func configureCloseButton() {
+        view.addSubview(closeButton)
+        closeButton.translatesAutoresizingMaskIntoConstraints = false
+        closeButton.alpha = 0.9
+        closeButton.setImage(UIImage(named: "closeLight"), for: .normal)
+        closeButton.addTarget(self, action: #selector(dismissVC), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
-            gameInfoContainer.bottomAnchor.constraint(equalTo: gameTopContainer.bottomAnchor),
-            gameInfoContainer.heightAnchor.constraint(equalToConstant: 100)
+            closeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 15),
+            closeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
+            closeButton.heightAnchor.constraint(equalToConstant: 32),
+            closeButton.widthAnchor.constraint(equalTo: closeButton.heightAnchor)
         ])
     }
     
     func configureScrollView() {
         view.addSubview(scrollView)
-        scrollView.pinToSides(of: view, sides: .leading(), .trailing())
+        scrollView.pinToSides(of: view, sides: .all())
+        scrollView.delegate = self
+        scrollView.showsVerticalScrollIndicator = false
+    }
+    
+    func configureGameContentView() {
+        scrollView.addSubview(gameContentView)
+        gameContentView.pinToSides(of: scrollView, sides: .all())
         
-        scrollView.addSubview(contentView)
-        contentView.pinToSides(of: scrollView, sides: .all())
+        NSLayoutConstraint.activate([
+            gameContentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            gameContentView.heightAnchor.constraint(greaterThanOrEqualTo: scrollView.heightAnchor)
+        ])
+    }
+    
+    func configureImageView() {
+        gameContentView.addSubview(gameImageView)
+        gameImageView.downloadImage(for: boardgame, imageType: .image)
+        gameImageView.contentMode = .scaleAspectFill
         
-        contentView.addSubview(gameDescriptionLabel)
+        gameImageView.pinToSides(of: gameContentView, sides: .top(), .leading(constant: -10), .trailing(constant: -10))
+        gameImageView.heightAnchor.constraint(equalToConstant: view.bounds.height - 350).isActive = true
+    }
+    
+    func configureGameInfoContainerView() {
+        gameContentView.addSubview(gameInfoContainer)
+        gameInfoContainer.pinToSides(of: gameImageView, sides: .bottom(), .leading(), .trailing())
+        
+        gameInfoContainer.backgroundColor = .black.withAlphaComponent(0.7)
+        gameContentView.bringSubviewToFront(gameInfoContainer)
+        
+        NSLayoutConstraint.activate([
+            gameInfoContainer.heightAnchor.constraint(equalToConstant: 100)
+        ])
+    }
+    
+    
+    func configureGameTitleLabel() {
+        gameContentView.addSubview(gameTitleLabel)
+        gameTitleLabel.pinToSides(of: gameContentView, sides: .leading(constant: padding), .trailing(constant: padding))
+        
+        gameTitleLabel.text = boardgame.name
+        gameTitleLabel.textColor = .white
+        gameTitleLabel.numberOfLines = 3
+        gameTitleLabel.lineBreakMode = .byWordWrapping
+        
+        gameTitleLabel.layer.shadowColor = UIColor.black.cgColor
+        gameTitleLabel.layer.shadowOffset = CGSize(width: 2, height: 2)
+        gameTitleLabel.layer.shadowOpacity = 1
+        
+        NSLayoutConstraint.activate([
+            gameTitleLabel.heightAnchor.constraint(lessThanOrEqualToConstant: 300),
+            gameTitleLabel.bottomAnchor.constraint(equalTo: gameInfoContainer.topAnchor, constant: -padding)
+        ])
+    }
+    
+    func configureGameDescriptionLabel() {
+        gameContentView.addSubview(gameDescriptionLabel)
         
         gameDescriptionLabel.numberOfLines = 0
         gameDescriptionLabel.sizeToFit()
         gameDescriptionLabel.textAlignment = .justified
         gameDescriptionLabel.text = boardgame.description
         
-        gameDescriptionLabel.pinToSides(of: contentView, sides: .all(constant: padding))
+        gameDescriptionLabel.pinToSides(of: gameContentView, sides: .leading(constant: padding), .trailing(constant: padding))
         
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: gameTopContainer.bottomAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -padding),
-            
-            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 150),
+            gameDescriptionLabel.topAnchor.constraint(equalTo: gameImageView.bottomAnchor, constant: padding),
+            gameDescriptionLabel.bottomAnchor.constraint(lessThanOrEqualTo: gameContentView.bottomAnchor, constant: -padding),
         ])
-        
     }
+    
     
     @objc func dismissVC() {
         dismiss(animated: true)
+    }
+}
+
+extension MyGameInfo: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let imageEnd = view.bounds.height - 330
+        
+        if offsetY > imageEnd {
+            closeButton.setImage(UIImage(named: "closeDark"), for: .normal)
+        } else {
+            closeButton.setImage(UIImage(named: "closeLight"), for: .normal)
+        }
     }
 }
